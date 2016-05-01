@@ -3,11 +3,13 @@ import re
 import json
 import time
 import random
+import colorama
 
 THREAD = "https://www.reddit.com/r/counting/comments/4h5wqh/1114k_counting_thread/"
 CONSTANTLOOP = True
 MIN_SLEEP = 10
 MAX_SLEEP = 20
+REPLY_SLEEP = 50
 
 
 
@@ -55,10 +57,11 @@ def main():
         nextNumber = get_next_number(maxComment.body)
 
         #reply and upvote
-        print("replying to", maxComment.body, "with", nextNumber)
+        print(colorama.Fore.GREEN + "replying to", maxComment.body, "with", nextNumber + colorama.Fore.RESET)
         print(THREAD + maxComment.id)
         maxComment.reply(get_next_number(maxComment.body))
         maxComment.upvote()
+        time.sleep(REPLY_SLEEP)
     else:
         print("I am currently the author of the highest comment")
 
